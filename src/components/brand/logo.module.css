@@ -1,0 +1,8 @@
+.logo {
+  display: block;
+  height: auto;
+}
+
+.light {
+  filter: brightness(0) invert(1);
+}

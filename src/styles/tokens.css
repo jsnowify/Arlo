@@ -1,0 +1,29 @@
+:root {
+  color-scheme: dark;
+
+  /* Palette visually matched to the supplied brand reference. */
+  --color-ink: #0e0e0f;
+  --color-paper: #f4f4f2;
+  --color-white: #ffffff;
+  --color-charcoal: #1e1e1e;
+  --color-gray: #69696b;
+  --color-silver: #cacac7;
+  --color-mist: #e8e8e5;
+  --color-blue: #1d4fff;
+  --color-blue-pale: #e6ecff;
+  --color-blue-deep: #1432d4;
+  --color-blue-light: #4d73ff;
+
+  --background: var(--color-ink);
+  --foreground: var(--color-paper);
+  --surface: var(--color-charcoal);
+  --muted: var(--color-silver);
+  --border: var(--color-gray);
+  --accent: var(--color-blue);
+  --accent-hover: var(--color-blue-light);
+  --accent-soft: var(--color-blue-pale);
+  --focus-ring: var(--color-blue-light);
+
+  --font-sans: var(--font-space-grotesk), Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "Courier New", monospace;
+}
