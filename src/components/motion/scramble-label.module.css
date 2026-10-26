@@ -1,0 +1,37 @@
+/* The same recipe as the GET EARLY ACCESS button: mono type in a fixed-width box, so the
+   letters that flicker past never move anything, plus brackets that slide out and a dim. */
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8em;
+  font-family: var(--font-mono);
+  font-size: var(--scramble-size, 13px);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.text {
+  display: inline-block;
+  transition: opacity 300ms ease;
+}
+.bracket {
+  display: inline-block;
+  transition: transform 350ms ease-in-out;
+}
+:is(a, button):is(:hover, :focus-visible) .root .text {
+  opacity: 0.72;
+}
+:is(a, button):is(:hover, :focus-visible) .root .bracket:first-child {
+  transform: translateX(-0.55em);
+}
+:is(a, button):is(:hover, :focus-visible) .root .bracket:last-child {
+  transform: translateX(0.55em);
+}
+@media (prefers-reduced-motion: reduce) {
+  .text,
+  .bracket {
+    transition: none;
+  }
+}

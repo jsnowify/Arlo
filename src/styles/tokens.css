@@ -1,29 +1,34 @@
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* Palette visually matched to the supplied brand reference. */
-  --color-ink: #0e0e0f;
-  --color-paper: #f4f4f2;
+  /* The Signal Room: chalk, graphite, oxidized silver, and signal blue. */
+  --color-ink: #141815;
+  --color-paper: #f0f1ed;
   --color-white: #ffffff;
-  --color-charcoal: #1e1e1e;
-  --color-gray: #69696b;
-  --color-silver: #cacac7;
-  --color-mist: #e8e8e5;
+  --color-charcoal: #202720;
+  --color-gray: #626a61;
+  --color-silver: #cbd0c6;
+  --color-mist: #e1e5dd;
   --color-blue: #1d4fff;
   --color-blue-pale: #e6ecff;
   --color-blue-deep: #1432d4;
   --color-blue-light: #4d73ff;
 
-  --background: var(--color-ink);
-  --foreground: var(--color-paper);
-  --surface: var(--color-charcoal);
-  --muted: var(--color-silver);
-  --border: var(--color-gray);
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+  --surface: var(--color-white);
+  --muted: var(--color-gray);
+  --border: var(--color-silver);
   --accent: var(--color-blue);
   --accent-hover: var(--color-blue-light);
   --accent-soft: var(--color-blue-pale);
   --focus-ring: var(--color-blue-light);
 
   --font-sans: var(--font-space-grotesk), Arial, Helvetica, sans-serif;
+  --font-display: var(--font-sans);
   --font-mono: var(--font-jetbrains-mono), "Courier New", monospace;
+
+  --gutter: clamp(20px, 4vw, 80px);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration: 800ms;
 }

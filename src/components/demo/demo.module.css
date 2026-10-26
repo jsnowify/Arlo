@@ -1,0 +1,120 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 28px;
+  padding: 5px 9px;
+  background: var(--accent);
+  color: var(--color-white);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.035em;
+  white-space: nowrap;
+}
+
+.dialog {
+  position: fixed;
+  width: min(520px, calc(100% - 32px));
+  max-height: calc(100svh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--color-ink);
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.dialog::backdrop {
+  background: rgb(14 14 15 / 55%);
+}
+
+.wideDialog {
+  width: min(1120px, calc(100% - 32px));
+}
+
+.dialogControls {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+  height: 56px;
+  padding: 6px 12px;
+  background: var(--color-paper);
+}
+
+.dialogContent {
+  padding: clamp(24px, 4vw, 40px);
+  padding-top: 8px;
+}
+
+.closeDialog {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.closeDialog:hover {
+  color: var(--accent);
+}
+
+.dialogTitle {
+  margin-top: 20px;
+  margin-bottom: 16px;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.05;
+}
+
+.dialogDescription {
+  max-width: 64ch;
+  line-height: 1.6;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The product dialog draws its own layout; only the close button comes from here. */
+.closeFloating {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-ink);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 300ms var(--ease-out),
+    color 300ms var(--ease-out);
+}
+.closeFloating:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.dialog::backdrop {
+  backdrop-filter: blur(6px);
+}

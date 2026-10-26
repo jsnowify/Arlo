@@ -1,0 +1,26 @@
+/* Layered on the product button from the home page (products.module.css .view), which supplies
+   the mono type, the border and the pointer-led fill with its ripple ring. */
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0;
+  text-decoration: none;
+  white-space: nowrap;
+}
+/* For dark sections: a light button, with the same blue fill on hover. */
+.light {
+  border-color: var(--color-paper);
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+.compact {
+  width: 100%;
+  padding-inline: 8px;
+  font-size: 11px;
+}
+.root[data-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--color-paper);
+}

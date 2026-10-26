@@ -1,0 +1,257 @@
+/* The product dialog: a light image stage on the left, the product file on a dark panel. */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  min-height: min(720px, calc(100svh - 34px));
+}
+
+/* Stage */
+.media {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  background: var(--color-mist);
+}
+.stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background:
+    linear-gradient(rgb(20 24 21 / 6%) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, rgb(20 24 21 / 6%) 1px, transparent 1px) 0 0 / 40px 40px,
+    var(--color-paper);
+}
+/* Corner marks, like a viewfinder. */
+.stage::before,
+.stage::after {
+  position: absolute;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-ink);
+  pointer-events: none;
+  content: "";
+}
+.stage::before {
+  top: 12px;
+  right: 12px;
+  border-width: 1px 1px 0 0;
+}
+.stage::after {
+  bottom: 12px;
+  left: 12px;
+  border-width: 0 0 1px 1px;
+}
+.frame {
+  position: absolute;
+  inset: 0;
+  animation: settle 600ms var(--ease-out);
+}
+.frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.counter {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  display: grid;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.track {
+  display: block;
+  width: 56px;
+  height: 2px;
+  background: rgb(20 24 21 / 15%);
+}
+.track > span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transition: width 500ms var(--ease-out);
+}
+.stageNav {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+}
+.thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  gap: 8px;
+}
+.thumb {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 4px;
+  border: 0;
+  background: var(--color-paper);
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 250ms var(--ease-out);
+}
+.thumb:hover,
+.thumb[aria-pressed="true"] {
+  opacity: 1;
+}
+.thumb[aria-pressed="true"]::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: var(--accent);
+  content: "";
+}
+.thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+/* Dark panel */
+.info {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 44px);
+  padding-top: 76px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.meta > span:first-child {
+  color: var(--color-blue-light);
+}
+.title {
+  margin-top: 24px;
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 96px);
+  font-weight: 600;
+  letter-spacing: -0.07em;
+  line-height: 0.92;
+}
+.format {
+  margin-top: 12px;
+  color: #a4ada0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.lead {
+  max-width: 34ch;
+  margin-top: 28px;
+  font-size: clamp(18px, 1.6vw, 22px);
+  letter-spacing: -0.03em;
+  line-height: 1.35;
+}
+.detail {
+  max-width: 48ch;
+  margin-top: 12px;
+  color: #bcc4b7;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.label {
+  margin-top: 28px;
+  color: #a4ada0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.figures,
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  list-style: none;
+}
+.figures li,
+.tags li {
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.figures li {
+  border: 1px solid var(--color-paper);
+  font-weight: 700;
+}
+.tags li {
+  border: 1px solid #455040;
+  color: #d3d8cd;
+}
+.fileWrap {
+  margin-top: 32px;
+}
+/* The product file rows, turned for a dark ground: a white fill spreads on hover. */
+.fileWrap > dl > div {
+  border-top-color: rgb(240 241 237 / 45%);
+  color: var(--color-paper);
+}
+.fileWrap > dl > div:last-child {
+  border-bottom-color: rgb(240 241 237 / 45%);
+}
+.fileWrap > dl > div::before {
+  background: var(--color-white);
+}
+.fileWrap > dl > div::after {
+  border-color: rgb(20 24 21 / 70%);
+}
+@media (hover: hover) {
+  .fileWrap > dl > div:hover {
+    color: var(--color-ink);
+  }
+}
+.note {
+  margin-top: 24px;
+  color: #a4ada0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+@media (max-width: 899px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+  .info {
+    padding-top: 32px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .frame {
+    animation: none;
+  }
+  .track > span,
+  .thumb {
+    transition: none;
+  }
+}

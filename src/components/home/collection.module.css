@@ -1,0 +1,531 @@
+﻿.collection {
+  padding: 64px var(--gutter) 80px;
+  overflow: clip;
+  scroll-margin-top: 88px;
+}
+.sectionHeading {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: end;
+  gap: 40px;
+  margin-bottom: 36px;
+}
+.eyebrow {
+  margin-bottom: 20px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.sectionHeading h2,
+.questions h1,
+.questions h2 {
+  max-width: 15ch;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5.1vw, 88px);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.sectionIntro {
+  justify-self: end;
+  max-width: 38ch;
+}
+.sectionIntro p {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.collectionControls {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  padding-block: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+}
+.collectionControls > span {
+  margin-left: auto;
+  margin-right: 24px;
+  color: var(--muted);
+}
+.collectionControls > p {
+  font-family: var(--font-mono);
+}
+.counterTotal {
+  color: var(--muted);
+}
+.collectionControls button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+.collectionControls button:hover {
+  color: var(--color-white);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.grid {
+  display: grid;
+  gap: 80px;
+}
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  border-top: 1px solid var(--border);
+}
+.cardMeta {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.imageFrame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  padding: 0;
+  overflow: clip;
+  aspect-ratio: 1.1;
+  border: 0;
+  background: var(--color-mist);
+  cursor: pointer;
+}
+.cardImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition:
+    transform 1.2s var(--ease-out),
+    opacity 800ms var(--ease-out);
+}
+.hoverImage {
+  display: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.cardCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  min-width: 0;
+  padding: clamp(24px, 4vw, 72px);
+}
+.format {
+  margin-bottom: 20px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.cardCopy h3 {
+  margin-bottom: 24px;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 4.8vw, 82px);
+  font-weight: 500;
+  letter-spacing: -0.07em;
+  line-height: 1;
+}
+.cardDescription {
+  max-width: 30ch;
+  margin-bottom: 32px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.detailsMagnetic {
+  width: 100%;
+  max-width: 300px;
+}
+.detailsButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  min-height: 52px;
+  padding-block: 12px;
+  border: 0;
+  border-bottom: 1px solid var(--color-ink);
+  background: transparent;
+  color: var(--foreground);
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+.detailsButton > span {
+  font-size: 28px;
+  line-height: 1;
+  transition: transform var(--duration) var(--ease-out);
+}
+.detailsButton:hover {
+  color: var(--accent);
+}
+.detailsButton:hover > span {
+  transform: rotate(45deg);
+}
+.collection[data-pinned] {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100svh;
+  padding-top: 36px;
+  padding-bottom: 32px;
+}
+.collection[data-pinned] .sectionHeading {
+  margin-bottom: 20px;
+}
+.collection[data-pinned] .sectionHeading h2 {
+  max-width: none;
+  font-size: clamp(44px, 4.5vw, 80px);
+}
+.collection[data-pinned] .sectionIntro p {
+  max-width: 32ch;
+  font-size: 12px;
+}
+.collection[data-pinned] .sectionIntro {
+  display: none;
+}
+.collection[data-pinned] .sectionHeading {
+  grid-template-columns: 1fr;
+}
+.collection[data-pinned] .collectionControls {
+  display: flex;
+}
+.collection[data-pinned] .viewport {
+  overflow: clip;
+  margin-right: calc(-1 * var(--gutter));
+}
+.collection[data-pinned] .grid {
+  display: flex;
+  gap: 64px;
+  width: max-content;
+  padding-right: var(--gutter);
+}
+.collection[data-pinned] .card {
+  flex: 0 0 78vw;
+  width: 78vw;
+  max-width: 1440px;
+  height: calc(100svh - 270px);
+  min-height: 360px;
+  border-top: 0;
+}
+.collection[data-pinned] .cardMeta {
+  padding-top: 0;
+}
+.collection[data-pinned] .imageFrame {
+  min-height: 0;
+  height: 100%;
+  aspect-ratio: auto;
+}
+.collection[data-pinned] .cardCopy {
+  padding-block: 20px;
+}
+.collection:not([data-pinned]) .card:nth-child(even) .imageFrame {
+  grid-column: 2;
+  grid-row: 2;
+}
+.collection:not([data-pinned]) .card:nth-child(even) .cardCopy {
+  grid-column: 1;
+  grid-row: 2;
+  padding-left: 0;
+}
+.productDetail {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: start;
+  gap: 32px;
+  margin-top: 32px;
+}
+.gallery {
+  min-width: 0;
+}
+.galleryImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.thumbnail {
+  width: 72px;
+  height: 72px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+}
+.thumbnail[aria-pressed="true"] {
+  border: 2px solid var(--accent);
+}
+.thumbnail:hover {
+  border-color: var(--accent);
+}
+.thumbnail img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.designNotes dl > div {
+  padding-block: 16px;
+  border-top: 1px solid var(--border);
+}
+.designNotes dt {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.designNotes dd {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.designNotes ul {
+  list-style: none;
+}
+.imageNote {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.questions {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 8vw;
+  padding: 120px var(--gutter);
+  overflow: clip;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 76px;
+}
+/* On its own page the section starts at the top, under the fixed header. */
+.questionsPage {
+  padding-top: clamp(168px, 16vw, 232px);
+  min-height: 100svh;
+}
+.questionsIntro {
+  position: relative;
+}
+.questions h1,
+.questions h2 {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: clamp(72px, 12vw, 200px);
+  font-weight: 600;
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+}
+.questionList {
+  display: grid;
+  gap: 8px;
+}
+.question summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  padding: 8px 10px 8px 18px;
+  border-radius: 8px;
+  background: var(--color-mist);
+  color: var(--color-ink);
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.4;
+  list-style: none;
+  cursor: pointer;
+  transition:
+    background-color 400ms var(--ease-out),
+    color 400ms var(--ease-out);
+}
+.question summary::-webkit-details-marker {
+  display: none;
+}
+.question summary:hover {
+  background: var(--color-silver);
+}
+.question[data-open="true"] summary {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.questionIcon {
+  position: relative;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-ink);
+  transition:
+    transform 600ms cubic-bezier(0.34, 1.8, 0.64, 1),
+    background-color 400ms var(--ease-out),
+    color 400ms var(--ease-out);
+}
+.questionIcon::before,
+.questionIcon::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 1px;
+  margin: -0.5px 0 0 -6px;
+  background: currentColor;
+  content: "";
+}
+.questionIcon::after {
+  transform: rotate(90deg);
+}
+.question[data-open="true"] .questionIcon {
+  background: var(--accent);
+  color: var(--color-white);
+  transform: rotate(135deg);
+}
+.questionBody {
+  overflow: hidden;
+}
+.question p {
+  max-width: 58ch;
+  margin: 8px 14px 0 22px;
+  padding: 16px 18px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--color-ink);
+  font-size: 14px;
+  line-height: 1.6;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hoverImage {
+    display: block;
+  }
+  .imageFrame:hover .cardImage:first-child {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  .imageFrame:hover .hoverImage {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+@media (max-width: 1023px) {
+  .cardCopy {
+    padding: 32px;
+  }
+  .cardCopy h3 {
+    font-size: 5vw;
+  }
+  .cardDescription {
+    font-size: 14px;
+  }
+  .questions {
+    gap: 40px;
+    padding-block: 80px;
+  }
+}
+@media (max-width: 767px) {
+  .collection {
+    padding-block: 64px;
+    scroll-margin-top: 76px;
+  }
+  .sectionHeading {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .sectionIntro {
+    justify-self: start;
+  }
+  .sectionIntro p {
+    font-size: 13px;
+  }
+  .grid {
+    gap: 48px;
+  }
+  .card {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+  }
+  .imageFrame,
+  .collection:not([data-pinned]) .card:nth-child(even) .imageFrame {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .cardCopy,
+  .collection:not([data-pinned]) .card:nth-child(even) .cardCopy {
+    grid-column: 1;
+    grid-row: 3;
+    padding: 24px 0 0;
+  }
+  .cardCopy h3 {
+    font-size: 12vw;
+    margin-bottom: 16px;
+  }
+  .format {
+    margin-bottom: 12px;
+  }
+  .cardDescription {
+    max-width: 38ch;
+    margin-bottom: 20px;
+  }
+  .detailsMagnetic {
+    max-width: none;
+  }
+  .productDetail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .questions {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    padding-block: 64px;
+  }
+  .questions h1,
+.questions h2 {
+    font-size: 22vw;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cardImage,
+  .detailsButton > span,
+  .questionIcon {
+    transition: none;
+  }
+}
+
+/* Keep the header clearance on smaller screens, where .questions sets its own padding. */
+@media (max-width: 1023px) {
+  .questionsPage {
+    padding-top: 152px;
+  }
+}
+@media (max-width: 767px) {
+  .questionsPage {
+    padding-top: 128px;
+    min-height: 0;
+  }
+}

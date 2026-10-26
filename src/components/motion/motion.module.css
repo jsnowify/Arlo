@@ -1,0 +1,117 @@
+.wordMask {
+  display: inline-block;
+  overflow: clip;
+  padding-block: 0.09em;
+  margin-block: -0.09em;
+  vertical-align: top;
+}
+.word {
+  display: inline-block;
+}
+.magnetic {
+  display: inline-flex;
+}
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gutter);
+  background: var(--accent);
+  color: var(--color-paper);
+  pointer-events: none;
+}
+.introCount {
+  width: 4ch;
+  font-family: var(--font-mono);
+  font-size: clamp(48px, 8vw, 112px);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-align: center;
+}
+.marquee {
+  overflow: hidden;
+  padding-block: 24px;
+  background: var(--accent);
+  color: var(--color-paper);
+}
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.marqueeSet {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 4vw;
+  padding-right: 4vw;
+}
+.marqueeSet > span {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 7vw, 120px);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.2;
+}
+.marqueeSet > i {
+  font-size: clamp(36px, 5vw, 80px);
+  font-style: normal;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    transform: none !important;
+  }
+  .intro {
+    display: none !important;
+  }
+}
+
+.wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  visibility: hidden;
+  pointer-events: none;
+}
+.wipeInk {
+  background: var(--color-ink);
+}
+.wipeSignal {
+  background: var(--color-blue);
+}
+@media (prefers-reduced-motion: reduce) {
+  .wipe {
+    display: none !important;
+  }
+}
+
+/* Zigzag reveal: the covers only exist when scripting is on and motion is allowed. */
+.zigzagWrap {
+  position: relative;
+  display: block;
+  width: fit-content;
+}
+.zigzagLayer {
+  position: absolute;
+  inset: -0.06em -0.1em;
+  display: none;
+  pointer-events: none;
+}
+.zigzagInk {
+  background: var(--color-ink);
+}
+.zigzagSignal {
+  background: var(--color-blue);
+}
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .zigzagLayer {
+    display: block;
+  }
+  .zigzagWrap[data-done] .zigzagLayer {
+    display: none;
+  }
+}
