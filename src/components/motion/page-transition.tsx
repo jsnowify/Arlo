@@ -4,16 +4,20 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { gsap } from "@/lib/gsap";
 import { motion } from "@/lib/motion";
-import { covering, depth, lag, uncovering } from "@/lib/zigzag";
+import { lag, makeBand, type Band } from "@/lib/zigzag";
 import styles from "./motion.module.css";
 
 // One toothed edge sweeps left to right: first it covers the old page, then, once the new
-// route has rendered underneath, the same edge keeps going and uncovers it.
-const duration = { cover: 0.8, reveal: 1 };
+// route has rendered underneath, the same band keeps going and uncovers it.
+//
+// It is kept quick on purpose. The route is prefetched the moment the link is clicked, so it
+// loads while the cover is still sweeping in, and the two sweeps meet at full speed (the cover
+// accelerates into the seam and the reveal leaves it fast) instead of stopping in the middle.
+const duration = { cover: 0.4, reveal: 0.48 };
+// A phone gets a shorter, lighter wipe with fewer, deeper teeth.
+const phone = "(max-width: 767px)";
 // If the route never changes (a failed navigation), uncover anyway.
 const giveUp = 4000;
-
-type Layer = { element: HTMLElement; edge: number };
 
 export function PageTransition({ children }: { children: ReactNode }) {
   const ink = useRef<HTMLDivElement>(null);
@@ -26,38 +30,44 @@ export function PageTransition({ children }: { children: ReactNode }) {
 
   // Intercepts internal link clicks so the cover is already down before the route changes.
   useEffect(() => {
-    const layers: Layer[] = [
-      { element: signal.current!, edge: -depth },
-      { element: ink.current!, edge: -depth },
-    ];
+    const layers = [signal.current!, ink.current!];
     let timeline: gsap.core.Timeline | undefined;
 
-    // `shape` draws a layer for the current phase; delays keep the blue edge leading.
-    function sweep(shape: (edge: number) => string, seconds: number, done: () => void) {
+    // Builds the band for the screen as it is right now and gives each layer its shape.
+    function layout(): Band {
+      const small = window.matchMedia(phone).matches;
+      const width = window.innerWidth;
+      // A little taller than the screen, so a phone's collapsing toolbar never shows a gap.
+      const height = Math.ceil(window.innerHeight * 1.15);
+      const band = makeBand(width, height, small ? 8 : 10, width * (small ? 0.16 : 0.1));
       layers.forEach((layer) => {
-        layer.edge = -depth;
-        gsap.set(layer.element, { autoAlpha: 1, clipPath: shape(layer.edge) });
+        gsap.set(layer, { width: band.bandWidth, height, clipPath: band.clip });
       });
+      return band;
+    }
+
+    // Moves the band from one x to another; the ink layer follows just behind the blue one.
+    function sweep(from: number, to: number, seconds: number, ease: string, done: () => void) {
+      layers.forEach((layer) => gsap.set(layer, { autoAlpha: 1, x: from }));
       timeline = gsap.timeline({ onComplete: done });
       layers.forEach((layer, order) => {
-        timeline!.to(
-          layer,
-          {
-            edge: 100,
-            duration: seconds,
-            ease: "sine.inOut",
-            onUpdate: () => {
-              layer.element.style.clipPath = shape(layer.edge);
-            },
-          },
-          order * lag,
-        );
+        timeline!.to(layer, { x: to, duration: seconds, ease }, order * lag);
       });
     }
 
+    const hide = () => layers.forEach((layer) => gsap.set(layer, { autoAlpha: 0 }));
+    const time = (seconds: number) => (window.matchMedia(phone).matches ? seconds * 0.8 : seconds);
+
     reveal.current = () => {
-      sweep(uncovering, duration.reveal, () => {
-        layers.forEach(({ element }) => gsap.set(element, { autoAlpha: 0 }));
+      // A missing page should simply be there: no wipe, just lift the cover.
+      if (document.querySelector("[data-not-found]")) {
+        hide();
+        phase.current = "idle";
+        return;
+      }
+      const band = layout();
+      sweep(band.rest, band.end, time(duration.reveal), "power2.out", () => {
+        hide();
         phase.current = "idle";
       });
     };
@@ -74,7 +84,10 @@ export function PageTransition({ children }: { children: ReactNode }) {
       event.preventDefault();
       if (phase.current !== "idle") return;
       phase.current = "covering";
-      sweep(covering, duration.cover, () => {
+      // Start loading the next page now, while the cover is still sweeping in.
+      router.prefetch(url.pathname + url.search);
+      const band = layout();
+      sweep(band.start, band.rest, time(duration.cover), "power2.in", () => {
         phase.current = "covered";
         router.push(url.pathname + url.search + url.hash);
         window.setTimeout(() => {
@@ -87,7 +100,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
     return () => {
       document.removeEventListener("click", onClick, true);
       timeline?.kill();
-      layers.forEach(({ element }) => gsap.set(element, { autoAlpha: 0 }));
+      hide();
       phase.current = "idle";
     };
   }, [router]);

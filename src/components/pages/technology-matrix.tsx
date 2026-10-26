@@ -47,7 +47,7 @@ export function TechnologyMatrix({
                     pressed={selected === product.id}
                     onClick={() => setSelected(selected === product.id ? null : product.id)}
                   >
-                    {product.name}
+                    {product.name.split(" / ")[0]}
                   </RippleButton>
                 </th>
               ))}

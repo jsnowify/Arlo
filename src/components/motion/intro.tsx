@@ -14,6 +14,11 @@ export function SiteIntro() {
     () => {
       const media = gsap.matchMedia();
       media.add(motion.enabled, () => {
+        // Landing straight on a missing page: skip the intro and show the 404 at once.
+        if (document.querySelector("[data-not-found]")) {
+          markIntroDone();
+          return;
+        }
         const counter = { value: 0 };
         gsap
           .timeline({ defaults: { ease: motion.ease } })

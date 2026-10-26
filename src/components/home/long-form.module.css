@@ -134,7 +134,7 @@
   }
   .maker {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 0;
   }
 }
 

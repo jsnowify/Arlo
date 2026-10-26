@@ -8,14 +8,43 @@
 }
 
 /* Matrix: which system appears in which object. */
+/* Positioned, so the table's visually hidden labels are clipped here instead of widening the page. */
 .matrixScroll {
+  position: relative;
   overflow-x: auto;
 }
 .matrix {
   width: 100%;
-  min-width: 640px;
   border-collapse: collapse;
   font-size: 13px;
+}
+/* On a phone all five columns fit: a narrow name column, then five slim ones. */
+@media (max-width: 767px) {
+  .matrix {
+    table-layout: fixed;
+  }
+  .matrix th:first-child {
+    width: 34%;
+  }
+  .matrix th,
+  .matrix td {
+    padding-inline: 2px;
+  }
+  .matrix tbody th {
+    font-size: 15px;
+  }
+  .matrix thead th button {
+    display: flex;
+    width: 100%;
+    min-width: 36px;
+    min-height: 32px;
+    padding-inline: 2px;
+    font-size: 9px;
+  }
+  .matrix .colId {
+    font-size: 9px;
+    white-space: nowrap;
+  }
 }
 .matrix th,
 .matrix td {

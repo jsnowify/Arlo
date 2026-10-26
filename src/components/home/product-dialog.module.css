@@ -97,6 +97,10 @@
   display: flex;
   gap: 8px;
 }
+/* The previous button is see-through by default; give it a ground so it reads over the image. */
+.stageNav > button:first-child {
+  background: var(--color-paper);
+}
 .thumbs {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));

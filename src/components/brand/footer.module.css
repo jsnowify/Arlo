@@ -214,7 +214,8 @@
     gap: 12px;
   }
   .wordmark {
-    font-size: 26vw;
+    /* Wide enough that the four letters fill the panel instead of floating apart. */
+    font-size: 36vw;
   }
 }
 @media (prefers-reduced-motion: reduce) {
